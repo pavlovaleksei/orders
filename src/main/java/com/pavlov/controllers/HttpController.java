@@ -1,7 +1,13 @@
 package com.pavlov.controllers;
 
+import com.pavlov.model.OrderDetails;
+import com.pavlov.model.Result;
+import com.pavlov.repository.OrderDetailRepository;
 import com.pavlov.repository.OrderRepository;
+import org.hibernate.Hibernate;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +30,9 @@ public class HttpController {
     @Autowired
     OrderRepository systemRepository;
 
+    @Autowired
+    OrderDetailRepository detailRepository;
+
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/get-time")
@@ -37,16 +46,24 @@ public class HttpController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/ordersh")
     public ResponseEntity getAllOrdersH() {
+
+
+//        List<Result> lists = new Configuration().buildSessionFactory().openSession().createQuery("select new com.pavlov.model.Result(orders.customername, orders.customeraddr) from Order orders").list();
+
 //        var orders = (List<OrderH>) orderService.findAll();
         System.out.println("getAllOrdersh");
+
+        Iterable<OrderDetails> detailsList = detailRepository.findAll();
+        detailsList.forEach(v -> System.out.println(v.toString()));
 
 //        Session session = new Configuration().buildSessionFactory().openSession();
 //        List<Order> list = session.createQuery("select new com.pavlov.model.Order(orders.id, orders.customername, orders.customeraddr, orders.ordersum, orders.createdate) from Order orders").list();
 
 
 
+
         return ResponseEntity.ok(systemRepository.findAll());
-//        return ResponseEntity.ok(list);
+//        return ResponseEntity.ok(lists);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
