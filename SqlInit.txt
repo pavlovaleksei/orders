@@ -1,0 +1,27 @@
+CREATE DATABASE Orders;
+USE Orders;
+CREATE TABLE orders (
+                         id int NOT NULL AUTO_INCREMENT UNIQUE,
+                         customername varchar(255),
+                         customeraddr varchar(255),
+                         ordersum double DEFAULT 0,
+                         createdate TIMESTAMP,
+                         PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+INSERT INTO Orders.orders (customername, customeraddr, ordersum, createdate) VALUES ('Маш 2', 'Тестовый адрес', 12000, DEFAULT);
+
+
+
+CREATE TABLE details (
+
+                         deatailid int NOT NULL AUTO_INCREMENT,
+                         productserialnum varchar(255),
+                         productname varchar(255),
+                         count int DEFAULT 0,
+                         orderid int,
+                         UNIQUE (deatailid, orderid),
+                         FOREIGN KEY (orderid) REFERENCES orders(id)
+) DEFAULT CHARSET=utf8;
+
+INSERT INTO Orders.details (productserialnum, productname, count, orderid) VALUES ('1CCC4', 'Bus', 2, 1);
+SELECT * FROM orders o INNER JOIN details d ON d.orderid = o.id WHERE o.id = 1 ;

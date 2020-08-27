@@ -1,0 +1,32 @@
+.accordion-item
+  position: relative
+
+
+.accordion-item-head
+  background-color: #cad7df
+  border-top-left-radius: 5px
+  border-top-right-radius: 5px
+  cursor: pointer
+  padding: 10px
+
+
+
+.accordion-item-head:after
+  content: ' > '
+  display: block
+  height: 29px
+  position: absolute
+  right: 25px
+  transform: rotate(90deg) scaleY(2)
+  top: 8px
+
+
+.accordion-item-head.active:after
+  content: ' < '
+
+
+.accordion-item-body
+  display: none
+
+.accordion-item-head.active + .accordion-item-body
+  display: block !important
