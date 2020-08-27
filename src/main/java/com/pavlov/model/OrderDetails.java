@@ -14,7 +14,7 @@ public class OrderDetails {
     private Long count;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="orders_id")
+    @Column(name="orderid")
     private Long orderid;
 
     public Long getDetailid() {

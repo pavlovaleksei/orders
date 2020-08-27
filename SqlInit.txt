@@ -8,7 +8,8 @@ CREATE TABLE orders (
                          createdate TIMESTAMP,
                          PRIMARY KEY (id)
 ) DEFAULT CHARSET=utf8;
-INSERT INTO Orders.orders (customername, customeraddr, ordersum, createdate) VALUES ('Маш 2', 'Тестовый адрес', 12000, DEFAULT);
+INSERT INTO Orders.orders (customername, customeraddr, ordersum, createdate) VALUES ('Маш 1', 'Тестовый адрес 1', 12000, DEFAULT);
+INSERT INTO Orders.orders (customername, customeraddr, ordersum, createdate) VALUES ('Маш 2', 'Тестовый адрес 2', 12002, DEFAULT);
 
 
 
@@ -24,4 +25,9 @@ CREATE TABLE details (
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO Orders.details (productserialnum, productname, count, orderid) VALUES ('1CCC4', 'Bus', 2, 1);
+INSERT INTO Orders.details (productserialnum, productname, count, orderid) VALUES ('1CCC5', 'Bus', 2, 1);
+INSERT INTO Orders.details (productserialnum, productname, count, orderid) VALUES ('1CCC6', 'Bus', 2, 1);
+INSERT INTO Orders.details (productserialnum, productname, count, orderid) VALUES ('2CCC1', 'Bus2', 2, 2);
+INSERT INTO Orders.details (productserialnum, productname, count, orderid) VALUES ('2CCC2', 'Bus2', 2, 2);
+
 SELECT * FROM orders o INNER JOIN details d ON d.orderid = o.id WHERE o.id = 1 ;

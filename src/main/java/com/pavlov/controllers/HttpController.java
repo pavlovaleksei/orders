@@ -1,5 +1,6 @@
 package com.pavlov.controllers;
 
+import com.pavlov.model.Order;
 import com.pavlov.model.OrderDetails;
 import com.pavlov.model.Result;
 import com.pavlov.repository.OrderDetailRepository;
@@ -28,7 +29,7 @@ public class HttpController {
 
 
     @Autowired
-    OrderRepository systemRepository;
+    OrderRepository orderRepository;
 
     @Autowired
     OrderDetailRepository detailRepository;
@@ -62,7 +63,7 @@ public class HttpController {
 
 
 
-        return ResponseEntity.ok(systemRepository.findAll());
+        return ResponseEntity.ok(orderRepository.findAll());
 //        return ResponseEntity.ok(lists);
     }
 
@@ -70,7 +71,54 @@ public class HttpController {
     @GetMapping("/api/orders")
     public ResponseEntity getAllOrders() {
         System.out.println("getAllOrders");
-        return ResponseEntity.ok(systemRepository.findAll());
+        return ResponseEntity.ok(orderRepository.findAll());
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/api/order")
+    public ResponseEntity getOrderById(@RequestParam Long orderid) {
+        System.out.println("getOrderById");
+        return ResponseEntity.ok(orderRepository.findById(orderid));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/api/order")
+    public ResponseEntity addOrder(@RequestParam Order order) {
+        System.out.println("addOrder");
+        return ResponseEntity.ok(orderRepository.save(order));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/api/order")
+    public ResponseEntity updateOrder(@RequestParam Order order) {
+        System.out.println("updateOrder");
+        orderRepository.delete(order);
+        return ResponseEntity.ok(orderRepository.save(order));
+    }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/api/order")
+    public ResponseEntity deleteOrder(@RequestParam Long id) {
+        System.out.println("deleteOrder");
+        orderRepository.deleteById(id);
+        return ResponseEntity.ok("Order deleted");
+    }
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/api/details")
+    public ResponseEntity getOrderDetailsByOrderId(@RequestParam Long orderid) {
+        System.out.println("getOrderDetailsByOrderId");
+        return ResponseEntity.ok(detailRepository.findOrderDetailsByOrderid(orderid));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/api/detail")
+    public ResponseEntity getOrderDetailById(@RequestParam Long detailId) {
+        System.out.println("getOrderDetailById");
+        return ResponseEntity.ok(detailRepository.findById(detailId));
     }
 
 //    @CrossOrigin(origins = "*", allowedHeaders = "*")
