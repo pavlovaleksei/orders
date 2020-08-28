@@ -4,6 +4,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<developers>
+		<developer>
+			<name>Pavlov Aleksey</name>
+			<email>pavlov_aleksei@list.ru</email>
+			<url>https://pavlovaleksei.github.io</url>
+		</developer>
+	</developers>
+
 	<groupId>com.pavlov</groupId>
 	<artifactId>orders-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -54,6 +62,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

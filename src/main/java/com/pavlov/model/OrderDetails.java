@@ -3,18 +3,22 @@ package com.pavlov.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @Author Pavlov Aleksei
+ * @Date 28-08-2020
+ * Entity for detail table in Orders DB
+ */
 @Entity
 @Table(name = "details")
 public class OrderDetails {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="detailid")
     private Long detailid;
     private String productserialnum;
     private String productname;
     private Long count;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="orderid")
     private Long orderid;
 
     public Long getDetailid() {
