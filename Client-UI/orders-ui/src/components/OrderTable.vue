@@ -53,9 +53,9 @@
         :width="'20%'"
         center>
             <span>
-                <el-input placeholder="Наименование заказа" v-model="element.order.customerName"></el-input>
-                <el-input placeholder="Адрес" v-model="element.order.customerAddr"></el-input>
-                <el-input placeholder="Сумма" v-model="element.order.orderSum"></el-input>
+                <el-input placeholder="Наименование заказа" required v-model="element.order.customerName"></el-input>
+                <el-input placeholder="Адрес" required v-model="element.order.customerAddr"></el-input>
+                <el-input placeholder="Сумма" required v-model="element.order.orderSum"></el-input>
             </span>
       <span slot="footer" class="dialog-footer">
             <el-button @click="isActive.addOrder = false">Отмена</el-button>
@@ -70,9 +70,9 @@
         :width="'20%'"
         center>
             <span>
-                <el-input placeholder="Наименование заказа" v-model="element.order.customerName"></el-input>
-                <el-input placeholder="Адрес" v-model="element.order.customerAddr"></el-input>
-                <el-input placeholder="Сумма" v-model="element.order.orderSum"></el-input>
+                <el-input placeholder="Наименование заказа" required v-model="element.order.customerName"></el-input>
+                <el-input placeholder="Адрес" required v-model="element.order.customerAddr"></el-input>
+                <el-input placeholder="Сумма" required v-model="element.order.orderSum"></el-input>
             </span>
       <span slot="footer" class="dialog-footer">
             <el-button @click="isActive.updateOrder = false">Отмена</el-button>
@@ -87,9 +87,9 @@
         :width="'20%'"
         center>
             <span>
-                <el-input placeholder="Серийный номер продукта" v-model="element.detail.productSerialNum"></el-input>
-                <el-input placeholder="Наименование" v-model="element.detail.productName"></el-input>
-                <el-input placeholder="Количество" v-model="element.detail.count"></el-input>
+                <el-input placeholder="Серийный номер продукта" required v-model="element.detail.productSerialNum"></el-input>
+                <el-input placeholder="Наименование" required v-model="element.detail.productName"></el-input>
+                <el-input placeholder="Количество" required v-model="element.detail.count"></el-input>
             </span>
       <span slot="footer" class="dialog-footer">
             <el-button @click="isActive.addDetail = false">Отмена</el-button>
@@ -104,9 +104,9 @@
         :width="'20%'"
         center>
             <span>
-                <el-input placeholder="Наименование заказа" v-model="element.detail.productSerialNum"></el-input>
-                <el-input placeholder="Адрес" v-model="element.detail.productName"></el-input>
-                <el-input placeholder="Сумма" v-model="element.detail.count"></el-input>
+                <el-input placeholder="Наименование заказа" required v-model="element.detail.productSerialNum"></el-input>
+                <el-input placeholder="Адрес" required v-model="element.detail.productName"></el-input>
+                <el-input placeholder="Сумма" required v-model="element.detail.count"></el-input>
             </span>
       <span slot="footer" class="dialog-footer">
             <el-button @click="isActive.updateDetail = false">Отмена</el-button>
@@ -145,7 +145,7 @@ export default {
           detailId: 0,
           productSerialNum: '',
           productName: '',
-          count: 0,
+          count: '',
           orderId: 0
         }
       }

@@ -9,10 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author Pavlov Aleksei
@@ -29,8 +28,6 @@ public class HttpController {
     @Autowired
     OrderDetailRepository detailRepository;
 
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/get-time")
     public ResponseEntity getCurrentTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -39,86 +36,77 @@ public class HttpController {
         return ResponseEntity.ok(result);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/orders")
     public ResponseEntity getAllOrders() {
-        System.out.println("getAllOrders");
         return ResponseEntity.ok(orderRepository.findAll());
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/order")
     public ResponseEntity getOrderById(@RequestParam Long orderid) {
-        System.out.println("getOrderById");
         return ResponseEntity.ok(orderRepository.findById(orderid));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/api/order")
     public ResponseEntity addOrder(@RequestBody Order order) {
-        System.out.println("Order: " + order.toString());
-        System.out.println("addOrder");
         return ResponseEntity.ok(orderRepository.save(order));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
     @PostMapping("/api/order")
     public ResponseEntity updateOrder(@RequestBody Order order) {
-        System.out.println("updateOrder");
-        orderRepository.delete(order);
-        return ResponseEntity.ok(orderRepository.save(order));
+        Optional<Order> orderFromDb = orderRepository.findById(order.getId());
+        if (!orderFromDb.isPresent()) return ResponseEntity.badRequest().body("Illegal order");
+        Order updateOrder = orderFromDb.get();
+        updateOrder.setCustomername(order.getCustomername());
+        updateOrder.setCustomeraddr(order.getCustomeraddr());
+        updateOrder.setCreatedate(order.getCreatedate());
+        updateOrder.setOrdersum(order.getOrdersum());
+        return ResponseEntity.ok(orderRepository.save(updateOrder));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
     @DeleteMapping("/api/order")
     public ResponseEntity deleteOrder(@RequestParam Long id) {
-        System.out.println("deleteOrder");
+        detailRepository.deleteAll(detailRepository.findAllByOrderid(id));
         orderRepository.deleteById(id);
         return ResponseEntity.ok("Order deleted");
     }
 
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/all-details")
     public ResponseEntity getAllOrderDetails() {
-        System.out.println("getAllOrderDetails");
         return ResponseEntity.ok(detailRepository.findAll());
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/details")
     public ResponseEntity getOrderDetailsByOrderId(@RequestParam Long orderid) {
-        System.out.println("getOrderDetailsByOrderId");
         return ResponseEntity.ok(detailRepository.findAllByOrderid(orderid));
     }
 
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/api/detail")
     public ResponseEntity getOrderDetailById(@RequestParam Long detailid) {
-        System.out.println("getOrderDetailById: " + detailid);
         return ResponseEntity.ok(detailRepository.findById(detailid));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/api/detail")
     public ResponseEntity addOrderDetails(@RequestBody OrderDetails details) {
-        System.out.println("addOrderDetails");
         return ResponseEntity.ok(detailRepository.save(details));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
     @PostMapping("/api/detail")
     public ResponseEntity updateOrderDetails(@RequestBody OrderDetails details) {
-        System.out.println("updateOrderDetails");
-        detailRepository.delete(details);
-        return ResponseEntity.ok(detailRepository.save(details));
+        Optional<OrderDetails> detailFromDb = detailRepository.findById(details.getDetailid());
+        if (!detailFromDb.isPresent()) return ResponseEntity.badRequest().body("Illegal detail");
+        OrderDetails updateDetail = detailFromDb.get();
+        updateDetail.setOrderid(details.getOrderid());
+        updateDetail.setProductserialnum(details.getProductserialnum());
+        updateDetail.setProductname(details.getProductname());
+        updateDetail.setCount(details.getCount());
+        return ResponseEntity.ok(detailRepository.save(updateDetail));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/api/detail")
     public ResponseEntity deleteOrderDetails(@RequestParam Long detailId) {
-        System.out.println("deleteOrderDetails");
         detailRepository.deleteById(detailId);
         return ResponseEntity.ok(String.format("Detail with id = %d deleted successful", detailId));
     }
