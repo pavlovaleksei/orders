@@ -1,7 +1,6 @@
 <template>
-    <div class="dateRenderer">
-        <div v-if="!isEmpty(description)">{{description}}</div>
-        <div>{{getCurrentDate()}}</div>
+    <div>
+        <div class="dateInfo" v-if="!isEmpty(description)">{{description}}{{getCurrentDate()}}</div>
     </div>
 </template>
 <script>
@@ -20,7 +19,7 @@
         },
         methods: {
             getCurrentDate() {
-                this.$http.get("http://localhost:9000/api/get-time")
+                this.$http.get("/api/get-time")
                     .then(response => this.currentTime = response.data.currentDate);
                 return this.currentTime;
             },

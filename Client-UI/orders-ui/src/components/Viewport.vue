@@ -1,38 +1,23 @@
 <template>
     <div class="viewport">
-        <DateRenderer :description='dateRendererDescription'/>
-
-
-        <List class="or-list"
-              :source="listData"
-        >
-
-        </List>
-
+      <DateRenderer :description='dateRendererDescription' class="header"/>
+      <OrderTable class="table"/>
     </div>
 </template>
 <script>
     import DateRenderer from './DateRenderer.vue'
-    import List from '../utils/List.vue'
+    import OrderTable from './OrderTable.vue'
 
     export default {
         name: 'Viewport',
         components: {
             DateRenderer,
-            List
+            OrderTable
         },
         data: () => {
             return {
-                dateRendererDescription: " a",
-                listData: []
+                dateRendererDescription: "Информация о текущем времени: "
             }
-        },
-        beforeCreate() {
-            this.$http.get("http://localhost:9000/api/orders")
-                .then(response => this.listData = response.data);
-        },
-        methods: {
         }
-
     }
 </script>
