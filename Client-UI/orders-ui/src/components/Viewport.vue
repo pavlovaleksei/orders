@@ -16,7 +16,7 @@
         },
         data: () => {
             return {
-                dateRendererDescription: "Информация о текущем времени: "
+                dateRendererDescription: "Информация о текущем времени:"
             }
         }
     }

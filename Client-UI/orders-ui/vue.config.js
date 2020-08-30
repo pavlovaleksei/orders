@@ -5,6 +5,11 @@ module.exports = {
                 target: 'http://localhost:9000',
                 ws: true,
                 changeOrigin: true
+            },
+            '/soap': {
+                target: 'http://localhost:9001',
+                ws: true,
+                changeOrigin: true
             }
         }
     },
