@@ -51,17 +51,9 @@ public class HttpController {
         return ResponseEntity.ok(orderRepository.save(order));
     }
 
-    @Transactional
     @PostMapping("/api/order")
     public ResponseEntity updateOrder(@RequestBody Order order) {
-        Optional<Order> orderFromDb = orderRepository.findById(order.getId());
-        if (!orderFromDb.isPresent()) return ResponseEntity.badRequest().body("Illegal order");
-        Order updateOrder = orderFromDb.get();
-        updateOrder.setCustomername(order.getCustomername());
-        updateOrder.setCustomeraddr(order.getCustomeraddr());
-        updateOrder.setCreatedate(order.getCreatedate());
-        updateOrder.setOrdersum(order.getOrdersum());
-        return ResponseEntity.ok(orderRepository.save(updateOrder));
+        return ResponseEntity.ok(orderRepository.save(order));
     }
 
     @Transactional
@@ -92,17 +84,9 @@ public class HttpController {
         return ResponseEntity.ok(detailRepository.save(details));
     }
 
-    @Transactional
     @PostMapping("/api/detail")
     public ResponseEntity updateOrderDetails(@RequestBody OrderDetails details) {
-        Optional<OrderDetails> detailFromDb = detailRepository.findById(details.getDetailid());
-        if (!detailFromDb.isPresent()) return ResponseEntity.badRequest().body("Illegal detail");
-        OrderDetails updateDetail = detailFromDb.get();
-        updateDetail.setOrderid(details.getOrderid());
-        updateDetail.setProductserialnum(details.getProductserialnum());
-        updateDetail.setProductname(details.getProductname());
-        updateDetail.setCount(details.getCount());
-        return ResponseEntity.ok(detailRepository.save(updateDetail));
+        return ResponseEntity.ok(detailRepository.save(details));
     }
 
     @DeleteMapping("/api/detail")
