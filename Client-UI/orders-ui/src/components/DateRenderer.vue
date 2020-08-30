@@ -14,8 +14,8 @@
         },
         data: () => {
             return {
-                currentTime: "",
-                currentSoapTime: ''
+                currentTime: '',
+                currentSoapTime: 'Нет данных'
             }
         },
         created() {
@@ -56,7 +56,7 @@
                 }).then(response => {
                         if (response.status !== 200) this.$message({
                             type: 'error',
-                            message: 'Ошибка при запросе данныхо'
+                            message: 'Ошибка при запросе даты из SOAP сервиса'
                         });
                         return response.text();
                     }).then(result => this.currentSoapTime = result.match(/<ns2:time>([^"]+)/)[1].substr(0, 19))
