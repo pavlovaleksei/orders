@@ -13,9 +13,9 @@
 	</developers>
 
 	<groupId>com.pavlov</groupId>
-	<artifactId>orders-test</artifactId>
+	<artifactId>orders</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>orders</name>
 	<description>Test project for ITQ-group llc</description>

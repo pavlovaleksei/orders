@@ -1,0 +1,37 @@
+version: '3.2'
+
+services:
+  wcr-mysql:
+    image: mysql:5.7
+    container_name: orders-mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - TZ=Europe/Saratov
+        - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./mysqldb:/var/lib/mysql:rw
+      - ./init.sql:/docker-entrypoint-initdb.d
+  orders-backend:
+    image: orders-backend:lates
+    build: ./
+    container_name: orders-backend
+
+    volumes:
+      - ./orders-backend:/opt/tomcat/orders-service/
+    devices:
+      - /dev/snd:/dev/snd
+      - /dev/dri:/dev/dri
+    environment:
+      - TZ=Europe/Saratov
+  orders-frontend:
+    image: orders-frontend:lates
+    build: ./Client-UI/orders-ui/
+    container_name: orders-frontend
+    depends_on:
+      - orders-backend
+    ports:
+      - "85:81"
+    environment:
+      - TZ=Europe/Saratov
